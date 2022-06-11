@@ -48,6 +48,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 10px 3px var(--blue-dark);
   background-color: var(--card__background);
+  cursor: pointer;
 }
 
 
