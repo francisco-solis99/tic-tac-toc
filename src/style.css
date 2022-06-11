@@ -1,8 +1,53 @@
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+:root {
+  --bg: #364349;
+  --white: #fffffe;
+  --border: #eff0f6;
+  --card__background: #1f3540;
+  --grey: #a8bec9;
+  --yellow: #ffd803;
+  --blue-dark: #0e172c;
+  --purple-ligth: #b69eff;
+  --h1: 700 3.125rem/normal Inter;
+  --h2: 700 2rem/2rem Inter;
+  --body1-regular: 400 1.125rem/1.75rem Inter;
+  --body1-bold: 700 1.125rem/normal Inter;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.hero {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  background-color: var(--bg);
+}
+
+.title {
+  color: var(--white);
+  text-align: center;
+  font-size: 2.8rem;
+}
+
+.tic-tac-toe__board {
+  min-width: 400px;
+  min-height: 400px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.tic-tac-toe__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 10px 3px var(--blue-dark);
+  background-color: var(--card__background);
+}
+
+
