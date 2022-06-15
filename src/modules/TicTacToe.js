@@ -1,6 +1,6 @@
-const WAYS_TO_WIN = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
-  [0, 3, 6], [1, 4, 7], [2, 5, 8],
-  [0, 4, 8], [2, 4, 6]];
+import { WAYS_TO_WIN } from '../data.js';
+import PC from './PC.js';
+console.log(WAYS_TO_WIN);
 
 function isRequiered (param) {
   throw new Error('You must pass the ' + param + ' parameter');
@@ -8,6 +8,9 @@ function isRequiered (param) {
 
 export function TicTacToe ({ mode = isRequiered('mode') } = {}) {
   this.mode = mode;
+  if (this.mode === 'single') {
+    this.pc = new PC();
+  }
   this.board = Array(9).fill(null);
   this.ticTacTocBoard = document.createElement('div');
   this.ticTacTocBoard.classList.add('tic-tac-toe__board');
@@ -25,7 +28,7 @@ TicTacToe.prototype = {
     app.appendChild(this.ticTacTocBoard);
     this.renderTurn();
     this.ticTacTocBoard.addEventListener('click', (e) => this.movement(e));
-    if (this.mode === 'single' && !this.player1Turn) this.pcMovement();
+    if (this.mode === 'single' && !this.player1Turn) this.pc.movement(this.board, this.makeMove.bind(this));
   },
 
   cell (posNumCell) {
@@ -64,44 +67,7 @@ TicTacToe.prototype = {
     this.makeMove(cell, position);
 
     // PC's move
-    if (this.mode === 'single') this.pcMovement();
-  },
-
-  pcMovement () {
-    // get the info positions
-    const rivalPositions = this.board.flatMap((item, index) => item !== 'cross' ? [] : index);
-    const availablePositions = this.board.flatMap((item, index) => item !== null ? [] : index);
-    const myPositions = this.board.flatMap((item, index) => item !== 'circle' ? [] : index);
-    // try the next pc's move
-    const pcNextPosition = this.getNextPcPositionMove(availablePositions, rivalPositions, myPositions);
-
-    // get the cell from the dom and make the move
-    const cell = this.ticTacTocBoard.querySelector(`.tic-tac-toe__cell[data-position="${pcNextPosition}"]`);
-    setTimeout(() => {
-      this.makeMove(cell, pcNextPosition);
-    }, 1000);
-  },
-
-  getNextPcPositionMove (availablePositions, enemyPositions, myPositions) {
-    const detectedWaysToLose = this.getWaysToMove(enemyPositions);
-    const detectedWaysToWin = this.getWaysToMove(myPositions);
-    console.log(detectedWaysToLose);
-    console.log(detectedWaysToWin);
-    const optionsToBlock = [...new Set(detectedWaysToLose.flat())].filter(pos => availablePositions.includes(pos));
-    const optionsToWin = [...new Set(detectedWaysToWin.flat())].filter(pos => availablePositions.includes(pos));
-    console.log({ optionsToWin, optionsToBlock });
-    return optionsToWin[0] ?? optionsToBlock[0] ?? availablePositions[Math.floor(Math.random() * availablePositions.length)];
-  },
-
-  getWaysToMove (positions) {
-    const detectedWays = WAYS_TO_WIN.filter(way => {
-      let times = 0;
-      for (const number of way) {
-        if (positions.includes(number)) times += 1;
-      }
-      return times >= 2;
-    });
-    return detectedWays;
+    if (this.mode === 'single') this.pc.movement(this.board, this.makeMove.bind(this));
   },
 
   makeMove (cell, position) {
