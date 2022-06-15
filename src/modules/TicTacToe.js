@@ -90,15 +90,20 @@ TicTacToe.prototype = {
   checkMove (turn, pos) {
     const waysFiltered = WAYS_TO_WIN.filter(element => element.includes(+pos));
     const currentBoard = this.board.map((cell, index) => cell === turn ? index : null).filter(item => item !== null);
-    const isWin = waysFiltered.some(way => {
+    const positionsWinner = waysFiltered.find(way => {
       let times = 0;
       currentBoard.forEach(pos => {
         if (way.includes(pos)) times += 1;
       });
       return times === 3;
     });
-    if (isWin) {
+    console.log(positionsWinner);
+    if (positionsWinner) {
       console.log(`El jugador ${!this.player1Turn ? '1' : '2'} - ${turn} ha ganado`);
+      positionsWinner.forEach(position => {
+        const cell = this.ticTacTocBoard.querySelector(`.tic-tac-toe__cell[data-position="${position}"]`);
+        cell.classList.add('cell__winner');
+      });
       this.restart();
       return;
     }

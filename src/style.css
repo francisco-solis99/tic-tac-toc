@@ -7,16 +7,25 @@
   --yellow: #ffd803;
   --blue-dark: #0e172c;
   --purple-ligth: #b69eff;
-  --h1: 700 3.125rem/normal Inter;
-  --h2: 700 2rem/2rem Inter;
+  --purple-dark: #5c5cff;
+  --gren-winner: #5a9b1e;
   --body1-regular: 400 1.125rem/1.75rem Inter;
   --body1-bold: 700 1.125rem/normal Inter;
 }
 
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/inter.ttf') format('woff2'),
+    url('./assets/fonts/inter.woff') format('woff'),
+    url('./assets/fonts/inter.woff2') format('truetype');
+  font-display: swap;
+}
+
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .hero {
@@ -27,13 +36,21 @@ body {
   color: var(--white);
 }
 
+
+
 .title {
+  font-weight: 700;
+  font-size: 3rem;
   text-align: center;
-  font-size: 2.8rem;
+  text-decoration:  var(--purple-ligth) wavy underline;
 }
 
 .player {
   font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration:  var(--yellow) wavy underline;
+  -webkit-text-underline-position: under;
+  text-underline-position: under;
 }
 
 .tic-tac-toe__board {
@@ -59,5 +76,39 @@ body {
 .tic-tac-toe__image {
   width: 70%;
   object-fit: cover;
+  animation: showUp 0.5s ease-in-out;
 }
 
+@keyframes showUp  {
+  0% {
+    transform: translateX(-50px) rotate(360deg);
+    opacity: 0.20;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.cell__winner {
+  background-color: var(--gren-winner);
+}
+
+.cell__winner > img {
+  animation: jump 1s ease-in-out infinite alternate;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
