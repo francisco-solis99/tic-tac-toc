@@ -24,17 +24,21 @@ body {
   place-content: center;
   min-height: 100vh;
   background-color: var(--bg);
+  color: var(--white);
 }
 
 .title {
-  color: var(--white);
   text-align: center;
   font-size: 2.8rem;
 }
 
+.player {
+  font-size: 1.2rem;
+}
+
 .tic-tac-toe__board {
-  min-width: 400px;
-  min-height: 400px;
+  min-width: 350px;
+  min-height: 350px;
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
@@ -51,4 +55,9 @@ body {
   cursor: pointer;
 }
 
+
+.tic-tac-toe__image {
+  width: 70%;
+  object-fit: cover;
+}
 
