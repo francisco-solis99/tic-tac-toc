@@ -6,4 +6,4 @@ const app = document.getElementById('app');
 const modeOfGame = 'single';
 // options => multiplayer, single
 const ticTacToeGame = new TicTacToe({ mode: modeOfGame });
-ticTacToeGame.renderBoard(app);
+ticTacToeGame.renderGame(app);

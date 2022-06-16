@@ -1,5 +1,6 @@
 import { WAYS_TO_WIN } from '../data.js';
 import PC from './PC.js';
+import Score from './Score.js';
 console.log(WAYS_TO_WIN);
 
 function isRequiered (param) {
@@ -11,6 +12,7 @@ export function TicTacToe ({ mode = isRequiered('mode') } = {}) {
   if (this.mode === 'single') {
     this.pc = new PC();
   }
+  this.scoreBaord = new Score({ rounds: 3, player1: 'Player', player2: 'PC' });
   this.board = Array(9).fill(null);
   this.ticTacTocBoard = document.createElement('div');
   this.ticTacTocBoard.classList.add('tic-tac-toe__board');
@@ -21,12 +23,14 @@ export function TicTacToe ({ mode = isRequiered('mode') } = {}) {
 TicTacToe.prototype = {
   constructor: TicTacToe,
 
-  renderBoard (app) {
+  renderGame (app) {
     this.ticTacTocBoard.innerHTML = `
       ${this.genCells(this.board.length)}
     `;
     app.appendChild(this.ticTacTocBoard);
     this.renderTurn();
+    const scoreBoard = this.scoreBaord.generateScoreBoard();
+    app.appendChild(scoreBoard);
     this.ticTacTocBoard.addEventListener('click', (e) => this.movement(e));
     if (this.mode === 'single' && !this.player1Turn) this.pc.movement(this.board, this.makeMove.bind(this));
   },

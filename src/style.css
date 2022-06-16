@@ -29,27 +29,38 @@ body {
   background-color: var(--bg);
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 70vh;
+}
+
 .hero {
-  min-width: 320px;
-  padding: 0 20px;
-  display: grid;
-  place-content: center;
+  min-width: 280px;
   min-height: 100vh;
+  padding: 0 20px;
+  padding-top: 20px;
+  position: relative;
   background-color: var(--bg);
   color: var(--white);
 }
 
 
 .title {
+  margin:0;
+  margin-bottom: 30px;
   font-weight: 700;
   font-size: 3rem;
   text-align: center;
   text-decoration:  var(--purple-ligth) wavy underline;
   -webkit-text-underline-position: under;
   text-underline-position: under;
+  text-shadow: 4px 4px 30px rgba(0, 0, 0, 0.75);
 }
 
 .player {
+  text-align: center;
   font-size: 1.2rem;
   font-weight: 700;
   text-decoration:  var(--yellow) wavy underline;
@@ -59,12 +70,13 @@ body {
 
 .tic-tac-toe__board {
   width: 100%;
-  min-width: 320px;
-  min-height: 320px;
+  margin: 0 auto;
+  max-width: 420px;
+  min-width: 280px;
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(80px, 1fr));
+  grid-template-rows: repeat(3, minmax(90px, 1fr));
 }
 
 .tic-tac-toe__cell {
@@ -79,7 +91,7 @@ body {
 
 
 .tic-tac-toe__image {
-  width: 70%;
+  width: 60%;
   object-fit: cover;
   animation: showUp 0.5s ease-in-out;
 }
@@ -116,4 +128,62 @@ body {
   100% {
     transform: translateY(0);
   }
+}
+
+
+/* Styles fo the score */
+.tic-tac-toe__score {
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  background-color: var(--card__background);
+}
+
+.tic-tac-toe__score-board {
+  text-align: center;
+}
+
+.tic-tac-toe__rounds {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.tic-tac-toe__actions {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+
+.tic-tac-toe__scorePlayer {
+  padding: 8px;
+  min-width: 90px;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: var(--blue-dark);
+  background-color: var(--purple-ligth);
+}
+
+.tic-toc-toe__restart-wrapper {
+  margin: 0;
+  padding: 8px;
+  background-color: var(--grey);
+  border-radius: 15px;
+}
+
+.tic-toc-toe__restart-image {
+  width: 50%;
+  object-fit: cover;
 }
