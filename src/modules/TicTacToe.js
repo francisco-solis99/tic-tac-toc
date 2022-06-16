@@ -97,14 +97,12 @@ TicTacToe.prototype = {
       });
       return times === 3;
     });
-    console.log(positionsWinner);
     if (positionsWinner) {
       console.log(`El jugador ${!this.player1Turn ? '1' : '2'} - ${turn} ha ganado`);
       positionsWinner.forEach(position => {
         const cell = this.ticTacTocBoard.querySelector(`.tic-tac-toe__cell[data-position="${position}"]`);
         cell.classList.add('cell__winner');
       });
-      this.restart();
       return;
     }
     if (this.board.filter(item => item !== null).length === 9) {
