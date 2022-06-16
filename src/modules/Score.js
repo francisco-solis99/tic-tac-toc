@@ -77,11 +77,24 @@ Score.prototype = {
     return this.scoreBoard;
   },
 
-  incrementRound () {
-    this.round += 1;
+  updateScoreBoard (num) {
+    const playerWinner = this.scoreBoard.querySelector(`.tic-tac-toe__scorePlayer:nth-child(${num})`);
+    const roundText = this.scoreBoard.querySelector('.tic-tac-toe__rounds');
+    roundText.textContent = `Round ${this.round} of  ${this.rounds}`;
+    playerWinner.textContent = `${this.labelPlayer1} - ${this.scorePlayer1}`;
   },
 
-  incrementScore ({ numplayer }) {
-    (numplayer === 1) ? this.scorePlayer1 += 1 : this.scorePlayer2 += 1;
+  incrementRound () {
+    this.round += 1;
+    console.log('se incremento el round');
+  },
+
+  incrementScore ({ numPlayer, shape }) {
+    (numPlayer === 1) ? this.scorePlayer1 += 1 : this.scorePlayer2 += 1;
+    this.updateScoreBoard(numPlayer);
+  },
+
+  announceWinner (numPlayer) {
+
   }
 };

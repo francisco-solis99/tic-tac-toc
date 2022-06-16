@@ -7,12 +7,46 @@ function isRequiered (param) {
   throw new Error('You must pass the ' + param + ' parameter');
 }
 
+const MODES = {
+  multiplayer: {
+    players: [
+      {
+        label: 'Player1',
+        shape: 'cross',
+        color: '#B69EFF'
+      },
+      {
+        label: 'Player2',
+        shape: 'circle',
+        color: '#FFD803'
+      }
+    ]
+
+  },
+
+  single: {
+    players: [
+      {
+        label: 'Player',
+        shape: 'cross',
+        color: '#B69EFF'
+      },
+      {
+        label: 'PC',
+        shape: 'circle',
+        color: '#FFD803'
+      }
+    ]
+  }
+};
+
 export function TicTacToe ({ mode = isRequiered('mode') } = {}) {
   this.mode = mode;
+  this.players = MODES[mode].players;
   if (this.mode === 'single') {
     this.pc = new PC();
   }
-  this.scoreBaord = new Score({ rounds: 3, player1: 'Player', player2: 'PC' });
+  this.scoreBoard = new Score({ rounds: 3, player1: this.players[0].label, player2: this.players[1].label });
   this.board = Array(9).fill(null);
   this.ticTacTocBoard = document.createElement('div');
   this.ticTacTocBoard.classList.add('tic-tac-toe__board');
@@ -29,7 +63,7 @@ TicTacToe.prototype = {
     `;
     app.appendChild(this.ticTacTocBoard);
     this.renderTurn();
-    const scoreBoard = this.scoreBaord.generateScoreBoard();
+    const scoreBoard = this.scoreBoard.generateScoreBoard();
     app.appendChild(scoreBoard);
     this.ticTacTocBoard.addEventListener('click', (e) => this.movement(e));
     if (this.mode === 'single' && !this.player1Turn) this.pc.movement(this.board, this.makeMove.bind(this));
@@ -50,15 +84,11 @@ TicTacToe.prototype = {
 
   renderTurn () {
     const shape = this.getTurn();
-    if (this.mode === 'single') {
-      this.playerIndicator.textContent = ` ${this.player1Turn ? 'Player' : 'PC'} - ${shape} turns`;
-      return;
-    }
-    this.playerIndicator.textContent = `Player ${this.player1Turn ? '1' : '2'} - ${shape} turns`;
+    this.playerIndicator.textContent = ` ${this.player1Turn ? this.players[0].label : this.players[1].label} - ${shape} turns`;
   },
 
   getTurn () {
-    return this.player1Turn ? 'cross' : 'circle';
+    return this.player1Turn ? this.players[0].shape : this.players[1].shape;
   },
 
   movement (e) {
@@ -102,6 +132,9 @@ TicTacToe.prototype = {
       return times === 3;
     });
     if (positionsWinner) {
+      const numPlayer = !this.player1Turn ? 1 : 2;
+      this.scoreBoard.incrementRound();
+      this.scoreBoard.incrementScore({ numPlayer, turn });
       console.log(`El jugador ${!this.player1Turn ? '1' : '2'} - ${turn} ha ganado`);
       positionsWinner.forEach(position => {
         const cell = this.ticTacTocBoard.querySelector(`.tic-tac-toe__cell[data-position="${position}"]`);
