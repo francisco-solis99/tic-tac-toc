@@ -11,11 +11,13 @@ const MODES = {
   multiplayer: {
     players: [
       {
+        numPlayer: 1,
         label: 'Player1',
         shape: 'cross',
         color: '#B69EFF'
       },
       {
+        numPlayer: 2,
         label: 'Player2',
         shape: 'circle',
         color: '#FFD803'
@@ -46,7 +48,8 @@ export function TicTacToe ({ mode = isRequiered('mode') } = {}) {
   if (this.mode === 'single') {
     this.pc = new PC();
   }
-  this.scoreBoard = new Score({ rounds: 3, player1: this.players[0].label, player2: this.players[1].label });
+  this.scoreBoard = new Score({ rounds: 3, player1: this.players[0], player2: this.players[1] });
+  console.log(this.scoreBoard);
   this.board = Array(9).fill(null);
   this.ticTacTocBoard = document.createElement('div');
   this.ticTacTocBoard.classList.add('tic-tac-toe__board');
@@ -132,9 +135,8 @@ TicTacToe.prototype = {
       return times === 3;
     });
     if (positionsWinner) {
-      const numPlayer = !this.player1Turn ? 1 : 2;
-      this.scoreBoard.incrementRound();
-      this.scoreBoard.incrementScore({ numPlayer, turn });
+      const numPlayer = !this.player1Turn ? this.players[0].numPlayer : this.players[1].numPlayer;
+      this.scoreBoard.incrementScore({ numPlayer });
       console.log(`El jugador ${!this.player1Turn ? '1' : '2'} - ${turn} ha ganado`);
       positionsWinner.forEach(position => {
         const cell = this.ticTacTocBoard.querySelector(`.tic-tac-toe__cell[data-position="${position}"]`);

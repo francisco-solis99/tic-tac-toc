@@ -1,16 +1,16 @@
 
 // the score is going to be a private property
 // using RORO pattern
-export default function Score ({ rounds, player1 = 'Player1', player2 = 'Player2' }) {
+export default function Score ({ rounds, player1 = {}, player2 = {} }) {
   const noPublic = {
     _round: 0,
     _player1: {
       score: 0,
-      label: player1
+      ...player1
     },
     _player2: {
       score: 0,
-      label: player2
+      ...player2
     }
   };
   Object.defineProperties(Score.prototype, {
@@ -24,33 +24,20 @@ export default function Score ({ rounds, player1 = 'Player1', player2 = 'Player2
         console.warn('Your value to assign to score must be a number');
       }
     },
-    scorePlayer1: {
-      get: () => noPublic._player1.score,
-      set: (newVal) => {
-        if (typeof newVal === 'number') {
-          noPublic._player1.score = newVal;
-          return;
-        }
-        console.warn('Your value to assign to score must be a number');
+    player1: {
+      get: () => noPublic._player1,
+      set: (prop, newVal) => {
+        // validate prop
+        console.log(this);
+        noPublic._player1[prop] = newVal;
       }
     },
-    scorePlayer2: {
-      get: () => noPublic._player2.score,
-      set: (newVal) => {
-        if (typeof newVal === 'number') {
-          noPublic._player2.score = newVal;
-          return;
-        }
-        console.warn('Your value to assign to score must be a number');
+    player2: {
+      get: () => noPublic._player2,
+      set: (prop, newVal) => {
+        // validate prop
+        noPublic._player2[prop] = newVal;
       }
-    },
-
-    labelPlayer1: {
-      get: () => noPublic._player1.label
-    },
-
-    labelPlayer2: {
-      get: () => noPublic._player2.label
     }
   });
   this.rounds = rounds;
@@ -60,7 +47,9 @@ export default function Score ({ rounds, player1 = 'Player1', player2 = 'Player2
 
 Score.prototype = {
   constructor: Score,
-
+  sayHI () {
+    console.log('Hello 😀');
+  },
   generateScoreBoard () {
     this.scoreBoard.innerHTML = `
       <div class="tic-tac-toe__score-board">
@@ -86,10 +75,10 @@ Score.prototype = {
 
   incrementRound () {
     this.round += 1;
-    console.log('se incremento el round');
   },
 
-  incrementScore ({ numPlayer, shape }) {
+  incrementScore ({ numPlayer }) {
+    this.incrementRound();
     (numPlayer === 1) ? this.scorePlayer1 += 1 : this.scorePlayer2 += 1;
     this.updateScoreBoard(numPlayer);
   },
