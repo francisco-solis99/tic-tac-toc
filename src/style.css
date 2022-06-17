@@ -71,7 +71,7 @@ body {
 .tic-tac-toe__board {
   width: 100%;
   margin: 0 auto;
-  max-width: 420px;
+  max-width: 350px;
   min-width: 280px;
   display: grid;
   gap: 20px;
@@ -133,13 +133,13 @@ body {
 
 /* Styles fo the score */
 .tic-tac-toe__score {
-  height: 20vh;
+  height: 18vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
   position: absolute;
-  bottom: 10px;
+  bottom: 0px;
   left: 0;
   right: 0;
   background-color: var(--card__background);
@@ -186,4 +186,16 @@ body {
 .tic-toc-toe__restart-image {
   width: 50%;
   object-fit: cover;
+}
+
+/* media query */
+@media screen and (min-width: 600px) {
+  #app {
+    height: 75vh;
+  }
+
+  .tic-tac-toe__score {
+    height: 20vh;
+  }
+
 }
