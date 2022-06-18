@@ -28,13 +28,13 @@ PC.prototype = {
     // detect way to win and to lose
     const detectedWaysToLose = this.getWaysToMove(this.enemyPositions);
     const detectedWaysToWin = this.getWaysToMove(this.myPositions);
-    console.log(detectedWaysToLose);
-    console.log(detectedWaysToWin);
+    // console.log(detectedWaysToLose);
+    // console.log(detectedWaysToWin);
 
     // get the option to win, option to lose or an a random position in the available positions and return it
     const optionsToBlock = [...new Set(detectedWaysToLose.flat())].filter(pos => this.availablePositions.includes(pos));
     const optionsToWin = [...new Set(detectedWaysToWin.flat())].filter(pos => this.availablePositions.includes(pos));
-    console.log({ optionsToWin, optionsToBlock });
+    // console.log({ optionsToWin, optionsToBlock });
     return optionsToWin[0] ?? optionsToBlock[0] ?? this.availablePositions[Math.floor(Math.random() * this.availablePositions.length)];
   },
 

@@ -181,12 +181,57 @@ body {
   padding: 8px;
   background-color: var(--grey);
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .tic-toc-toe__restart-image {
   width: 50%;
   object-fit: cover;
 }
+
+/* dialog */
+
+.dialog {
+  width: 40%;
+  height: 25vh;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+  border-radius: 15px;
+}
+
+.dialog::backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog__message {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.dialog__btn {
+  padding: 10px;
+  border: 0;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  background-color: var(--grey);
+  color: var(--blue-dark);
+  cursor: pointer;
+  transition:  all ease-in 150ms;
+}
+
+.dialog__btn:hover {
+  background-color: var(--blue-dark);
+  color: var(--grey);
+}
+
+
 
 /* media query */
 @media screen and (min-width: 600px) {
